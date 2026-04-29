@@ -1,5 +1,7 @@
 package datosmedicos_service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 // Entidad que representa medicamentos asociados a una ficha clinica
@@ -18,6 +20,7 @@ public class Medicamento {
 
     @ManyToOne
     @JoinColumn(name = "ficha_id")
+    @JsonIgnore
     private FichaClinica ficha;
 
     public Medicamento() {
