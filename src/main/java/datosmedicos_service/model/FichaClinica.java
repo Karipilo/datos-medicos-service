@@ -1,8 +1,7 @@
 package datosmedicos_service.model;
 
 import jakarta.persistence.*;
-import java.util.List;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "ficha_clinica")
@@ -11,14 +10,9 @@ public class FichaClinica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Medicamento> medicamentos;
-
     private String nombrePaciente;
     private String rutPaciente;
-    private int edad;
+    private Integer edad;
     private String diagnostico;
     private String alergias;
     private String observaciones;
@@ -48,7 +42,7 @@ public class FichaClinica {
         return rutPaciente;
     }
 
-    public int getEdad() {
+    public Integer getEdad() {
         return edad;
     }
 
@@ -72,7 +66,7 @@ public class FichaClinica {
         this.rutPaciente = rutPaciente;
     }
 
-    public void setEdad(int edad) {
+    public void setEdad(Integer edad) {
         this.edad = edad;
     }
 
@@ -87,4 +81,7 @@ public class FichaClinica {
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
+
+       
+
 }
