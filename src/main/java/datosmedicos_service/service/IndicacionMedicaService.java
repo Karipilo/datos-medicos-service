@@ -5,28 +5,28 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import datosmedicos_service.model.ControlMedico;
-import datosmedicos_service.repository.ControlMedicoRepository;
+import datosmedicos_service.model.IndicacionMedica;
+import datosmedicos_service.repository.IndicacionMedicaRepository;
 
 @Service
-public class ControlMedicoService {
+public class IndicacionMedicaService {
 
     @Autowired
-    private ControlMedicoRepository repository;
+    private IndicacionMedicaRepository repository;
 
-    public List<ControlMedico> listarTodos() {
+    public List<IndicacionMedica> listarTodos() {
 
         return repository.findAll();
     }
 
-    public ControlMedico guardar(
-            ControlMedico control
+    public IndicacionMedica guardar(
+            IndicacionMedica indicacion
     ) {
 
-        return repository.save(control);
+        return repository.save(indicacion);
     }
 
-    public ControlMedico buscarPorId(
+    public IndicacionMedica buscarPorId(
             Long id
     ) {
 

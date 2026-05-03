@@ -1,7 +1,7 @@
 package datosmedicos_service.model;
 
 import jakarta.persistence.*;
-import java.util.List;
+
 
 @Entity
 @Table(name = "ficha_clinica")
@@ -10,13 +10,6 @@ public class FichaClinica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL)
-    private List<Medicamento> medicamentos;
-
-    @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL)
-    private List<ControlMedico> controles;
-
     private String nombrePaciente;
     private String rutPaciente;
     private Integer edad;
@@ -89,11 +82,6 @@ public class FichaClinica {
         this.observaciones = observaciones;
     }
 
-    public List<Medicamento> getMedicamentos() {
-        return medicamentos;
-    }
+       
 
-    public List<ControlMedico> getControles() {
-        return controles;
-    }
 }

@@ -5,34 +5,36 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import datosmedicos_service.model.ControlMedico;
-import datosmedicos_service.service.ControlMedicoService;
+import datosmedicos_service.model.SignosVitales;
+import datosmedicos_service.service.SignosVitalesService;
 
 @RestController
-@RequestMapping("/controles")
+@RequestMapping("/signos-vitales")
 @CrossOrigin("*")
-public class ControlMedicoController {
+public class SignosVitalesController {
 
     @Autowired
-    private ControlMedicoService service;
+    private SignosVitalesService service;
 
     @GetMapping
-    public List<ControlMedico> listarTodos() {
+    public List<SignosVitales> listarTodos() {
 
         return service.listarTodos();
     }
 
     @PostMapping
-    public ControlMedico guardar(
+    public SignosVitales guardar(
             @RequestBody
-            ControlMedico control
+            SignosVitales signosVitales
     ) {
 
-        return service.guardar(control);
+        return service.guardar(
+                signosVitales
+        );
     }
 
     @GetMapping("/{id}")
-    public ControlMedico buscarPorId(
+    public SignosVitales buscarPorId(
             @PathVariable Long id
     ) {
 
