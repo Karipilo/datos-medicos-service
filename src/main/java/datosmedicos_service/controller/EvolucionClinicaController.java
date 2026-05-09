@@ -17,33 +17,35 @@ public class EvolucionClinicaController {
     private EvolucionClinicaService service;
 
     @GetMapping
-    public List<EvolucionClinica> listarTodos() {
-
-        return service.listarTodos();
+    public List<EvolucionClinica> listarTodos(@RequestHeader("Authorization") String token) {
+        return service.listarTodos(token);
     }
 
     @PostMapping
     public EvolucionClinica guardar(
+            @RequestHeader("Authorization") String token,
             @RequestBody
             EvolucionClinica evolucion
     ) {
 
-        return service.guardar(evolucion);
+        return service.guardar(token, evolucion);
     }
 
     @GetMapping("/{id}")
     public EvolucionClinica buscarPorId(
+            @RequestHeader("Authorization") String token,
             @PathVariable Long id
     ) {
 
-        return service.buscarPorId(id);
+        return service.buscarPorId(token, id);
     }
 
     @DeleteMapping("/{id}")
     public void eliminar(
+            @RequestHeader("Authorization") String token,
             @PathVariable Long id
     ) {
 
-        service.eliminar(id);
+        service.eliminar(token, id);
     }
 }

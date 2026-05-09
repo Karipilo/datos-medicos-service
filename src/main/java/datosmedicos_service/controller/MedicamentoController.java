@@ -17,12 +17,15 @@ public class MedicamentoController {
     }
 
     @GetMapping
-    public List<Medicamento> listar() {
-        return service.listar();
+    public List<Medicamento> listar(@RequestHeader("Authorization") String token) {
+        return service.listar(token);
     }
 
     @PostMapping
-    public Medicamento guardar(@RequestBody Medicamento medicamento) {
-        return service.guardar(medicamento);
+    public Medicamento guardar(
+            @RequestHeader("Authorization") String token,
+            @RequestBody Medicamento medicamento
+    ) {
+        return service.guardar(token, medicamento);
     }
 }
