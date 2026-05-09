@@ -22,9 +22,9 @@ public class SignosVitales {
 
     private String fecha;
 
-    @ManyToOne
-    @JoinColumn(name = "ficha_id")
-    private FichaClinica ficha;
+    //@ManyToOne
+    //@JoinColumn(name = "ficha_id")
+    //private FichaClinica ficha;
 
     public SignosVitales() {
     }
@@ -98,11 +98,11 @@ public class SignosVitales {
         this.fecha = fecha;
     }
 
-    public FichaClinica getFicha() {
-        return ficha;
-    }
+    //public FichaClinica getFicha() {
+    //    return ficha;
+    //}
 
-    public void setFicha(FichaClinica ficha) {
-        this.ficha = ficha;
-    }
+    //public void setFicha(FichaClinica ficha) {
+    //    this.ficha = ficha;
+    //}
 }
