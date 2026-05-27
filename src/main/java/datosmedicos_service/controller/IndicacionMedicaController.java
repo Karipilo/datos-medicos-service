@@ -17,33 +17,36 @@ public class IndicacionMedicaController {
     private IndicacionMedicaService service;
 
     @GetMapping
-    public List<IndicacionMedica> listarTodos() {
+    public List<IndicacionMedica> listarTodos(@RequestHeader("Authorization") String token) {
 
-        return service.listarTodos();
+        return service.listarTodos(token);
     }
 
     @PostMapping
     public IndicacionMedica guardar(
+            @RequestHeader("Authorization") String token,
             @RequestBody
             IndicacionMedica indicacion
     ) {
 
-        return service.guardar(indicacion);
+        return service.guardar(token,indicacion);
     }
 
     @GetMapping("/{id}")
     public IndicacionMedica buscarPorId(
+            @RequestHeader("Authorization") String token,
             @PathVariable Long id
     ) {
 
-        return service.buscarPorId(id);
+        return service.buscarPorId(token, id);
     }
 
     @DeleteMapping("/{id}")
     public void eliminar(
+            @RequestHeader("Authorization") String token,
             @PathVariable Long id
     ) {
 
-        service.eliminar(id);
+        service.eliminar(token, id);
     }
 }

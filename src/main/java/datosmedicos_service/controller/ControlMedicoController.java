@@ -17,33 +17,36 @@ public class ControlMedicoController {
     private ControlMedicoService service;
 
     @GetMapping
-    public List<ControlMedico> listarTodos() {
+    public List<ControlMedico> listarTodos(@RequestHeader("Authorization") String token) {
 
-        return service.listarTodos();
+        return service.listarTodos(token);
     }
 
     @PostMapping
     public ControlMedico guardar(
+            @RequestHeader("Authorization") String token,
             @RequestBody
             ControlMedico control
     ) {
 
-        return service.guardar(control);
+        return service.guardar(token, control);
     }
 
     @GetMapping("/{id}")
     public ControlMedico buscarPorId(
+            @RequestHeader("Authorization") String token,
             @PathVariable Long id
     ) {
 
-        return service.buscarPorId(id);
+        return service.buscarPorId(token, id);
     }
 
     @DeleteMapping("/{id}")
     public void eliminar(
+            @RequestHeader("Authorization") String token,
             @PathVariable Long id
     ) {
 
-        service.eliminar(id);
+        service.eliminar(token, id);
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import datosmedicos_service.model.SignosVitales;
 import datosmedicos_service.service.SignosVitalesService;
 
+
 @RestController
 @RequestMapping("/signos-vitales")
 @CrossOrigin("*")
@@ -17,35 +18,38 @@ public class SignosVitalesController {
     private SignosVitalesService service;
 
     @GetMapping
-    public List<SignosVitales> listarTodos() {
+    public List<SignosVitales> listarTodos(@RequestHeader("Authorization") String token) {
 
-        return service.listarTodos();
+        return service.listarTodos(token);
     }
 
     @PostMapping
     public SignosVitales guardar(
+            @RequestHeader("Authorization") String token,
             @RequestBody
             SignosVitales signosVitales
     ) {
 
         return service.guardar(
-                signosVitales
+                token,signosVitales
         );
     }
 
     @GetMapping("/{id}")
     public SignosVitales buscarPorId(
+            @RequestHeader("Authorization") String token,
             @PathVariable Long id
     ) {
 
-        return service.buscarPorId(id);
+        return service.buscarPorId(token, id);
     }
 
     @DeleteMapping("/{id}")
     public void eliminar(
+            @RequestHeader("Authorization") String token,
             @PathVariable Long id
     ) {
 
-        service.eliminar(id);
+        service.eliminar(token, id);
     }
 }
