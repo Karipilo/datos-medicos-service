@@ -3,7 +3,6 @@ package datosmedicos_service.model;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +27,9 @@ public class FichaClinica {
     private String observaciones;
     private String genero;
 
-    @OneToMany(mappedBy = "ficha")
+    @OneToMany(mappedBy = "ficha",
+               cascade = CascadeType.ALL,
+               orphanRemoval = true)
     @JsonManagedReference
     private List<Medicamento> medicamentos;
 }

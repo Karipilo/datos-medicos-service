@@ -1,10 +1,6 @@
 package datosmedicos_service.model;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +24,8 @@ public class Medicamento {
 
     private String observaciones;
 
-    private Long ficha;
-
-   
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ficha_id")
+    @JsonBackReference
+    private FichaClinica ficha;
 }
