@@ -25,11 +25,10 @@ public class FichaClinicaService {
 
     public boolean validarToken(String token) {
         token = token.replaceAll("Bearer ", ""); // Eliminar el prefijo "Bearer " si está
-        
+
         try {
 
-            ResponseEntity<String> response =
-                    authService.get(AUTH_URL, token);
+            ResponseEntity<String> response = authService.get(AUTH_URL, token);
 
             return response.getStatusCode() == HttpStatus.OK;
 
@@ -44,6 +43,7 @@ public class FichaClinicaService {
             return false;
         }
     }
+
     public FichaClinicaService(FichaClinicaRepository repository) {
         this.repository = repository;
     }
@@ -53,6 +53,44 @@ public class FichaClinicaService {
     }
 
     public FichaClinica guardar(FichaClinica ficha) {
+
+        return repository.findByRutPaciente(
+                ficha.getRutPaciente())
+                .orElseGet(() -> repository.save(ficha));
+
+    }
+
+    public FichaClinica buscarPorRut(String rut) {
+
+        return repository.findByRutPaciente(rut)
+                .orElseThrow(() -> new RuntimeException(
+                        "Ficha clínica no encontrada"));
+
+    }
+
+    public FichaClinica actualizar(
+            String rut,
+            FichaClinica datos) {
+
+        FichaClinica ficha = repository.findByRutPaciente(rut)
+                .orElseThrow(() -> new RuntimeException(
+                        "Ficha no encontrada"));
+
+        ficha.setDiagnostico(
+                datos.getDiagnostico());
+
+        ficha.setAlergias(
+                datos.getAlergias());
+
+        ficha.setObservaciones(
+                datos.getObservaciones());
+
+        ficha.setEdad(
+                datos.getEdad());
+
+        ficha.setGenero(
+                datos.getGenero());
+
         return repository.save(ficha);
     }
 }
