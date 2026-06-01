@@ -22,9 +22,26 @@ public class FichaClinicaController {
         return service.listar();
     }
 
+    @GetMapping("/rut/{rut}")
+    public FichaClinica buscarPorRut(
+            @PathVariable String rut) {
+
+        return service.buscarPorRut(rut);
+    }
+
     // POST → guardar ficha
     @PostMapping
     public FichaClinica guardar(@RequestBody FichaClinica ficha) {
         return service.guardar(ficha);
+    }
+
+    @PutMapping("/rut/{rut}")
+    public FichaClinica actualizar(
+            @PathVariable String rut,
+            @RequestBody FichaClinica ficha) {
+
+        return service.actualizar(
+                rut,
+                ficha);
     }
 }

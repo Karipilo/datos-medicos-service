@@ -25,7 +25,8 @@ public class IndicacionMedicaService {
     private String AUTH_URL;
 
     public boolean validarToken(String token) {
-
+        token = token.replaceAll("Bearer ", ""); // Eliminar el prefijo "Bearer " si está
+        
         try {
 
             ResponseEntity<String> response =

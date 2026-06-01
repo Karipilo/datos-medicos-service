@@ -1,30 +1,32 @@
 package datosmedicos_service.model;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(name = "antropometria")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Medicamento {
+public class Antropometria {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
+    private Double peso;
 
-    private String dosis;
+    private Double altura;
 
-    private String frecuencia;
+    private LocalDateTime fechaRegistro;
 
-    private String observaciones;
-
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ficha_id")
     @JsonBackReference
     private FichaClinica ficha;

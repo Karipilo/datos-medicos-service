@@ -23,6 +23,7 @@ public class MedicamentoService {
 
     public boolean validarToken(String token) {
 
+        token = token.replaceAll("Bearer ", ""); // Eliminar el prefijo "Bearer " si está
         try {
 
             ResponseEntity<String> response =
