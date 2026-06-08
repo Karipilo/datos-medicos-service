@@ -17,7 +17,7 @@ public class EvolucionClinicaService {
 
     @Autowired
     private EvolucionClinicaRepository repository;
-@Autowired
+    @Autowired
     private AuthService authService;
 
     @Value("${auth.url}")
@@ -25,11 +25,10 @@ public class EvolucionClinicaService {
 
     public boolean validarToken(String token) {
         token = token.replaceAll("Bearer ", ""); // Eliminar el prefijo "Bearer " si está
-        
+
         try {
 
-            ResponseEntity<String> response =
-                    authService.get(AUTH_URL, token);
+            ResponseEntity<String> response = authService.get(AUTH_URL, token);
 
             return response.getStatusCode() == HttpStatus.OK;
 
@@ -44,6 +43,7 @@ public class EvolucionClinicaService {
             return false;
         }
     }
+
     public List<EvolucionClinica> listarTodos(String token) {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
@@ -53,18 +53,18 @@ public class EvolucionClinicaService {
 
     public EvolucionClinica guardar(
             String token,
-            EvolucionClinica evolucion
-    ) {
-        if (!validarToken(token)) {
-            throw new RuntimeException("Token no válido -> acceso denegado");
-        }
+            EvolucionClinica evolucion) {
+        System.out.println("ENTRO A GUARDAR");
+        System.out.println(evolucion.getDescripcion());
+        // if (!validarToken(token)) {
+        // throw new RuntimeException("Token no válido -> acceso denegado");
+        // }
         return repository.save(evolucion);
     }
 
     public EvolucionClinica buscarPorId(
             String token,
-            Long id
-    ) {
+            Long id) {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }

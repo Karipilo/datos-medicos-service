@@ -17,14 +17,18 @@ public class EvolucionClinica {
     @Column(length = 2000)
     private String descripcion;
 
+    @Column(length = 2000)
+    private String observaciones;
+
+    private Long pacienteId;
+
     public EvolucionClinica() {
     }
 
     public EvolucionClinica(
             String fecha,
             String profesional,
-            String descripcion
-    ) {
+            String descripcion) {
         this.fecha = fecha;
         this.profesional = profesional;
         this.descripcion = descripcion;
@@ -46,6 +50,14 @@ public class EvolucionClinica {
         return descripcion;
     }
 
+    public String getObservaciones() {
+        return observaciones;
+    }
+
+    public Long getPacienteId() {
+        return pacienteId;
+    }
+
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
@@ -56,5 +68,13 @@ public class EvolucionClinica {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public void setPacienteId(Long pacienteId) {
+        this.pacienteId = pacienteId;
     }
 }
