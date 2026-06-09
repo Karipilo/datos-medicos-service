@@ -21,6 +21,9 @@ public class ExamenClinico {
     @Column(length = 2000)
     private String observacion;
 
+    @Column(length = 3000)
+    private String resultado;
+
     @ManyToOne
     @JoinColumn(name = "ficha_id")
     private FichaClinica ficha;
@@ -33,12 +36,14 @@ public class ExamenClinico {
             String fecha,
             String estado,
             String profesional,
-            String observacion) {
+            String observacion,
+            String resultado) {
         this.nombre = nombre;
         this.fecha = fecha;
         this.estado = estado;
         this.profesional = profesional;
         this.observacion = observacion;
+        this.resultado = resultado;
     }
 
     public Long getId() {
@@ -69,6 +74,10 @@ public class ExamenClinico {
         return ficha;
     }
 
+    public String getResultado() {
+        return resultado;
+    }
+
     public void setFicha(FichaClinica ficha) {
         this.ficha = ficha;
     }
@@ -91,5 +100,9 @@ public class ExamenClinico {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+
+    public void setResultado(String resultado) {
+        this.resultado = resultado;
     }
 }
