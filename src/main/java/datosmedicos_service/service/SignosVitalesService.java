@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import datosmedicos_service.model.FichaClinica;
 import datosmedicos_service.model.SignosVitales;
+import datosmedicos_service.repository.FichaClinicaRepository;
 import datosmedicos_service.repository.SignosVitalesRepository;
 
 @Service
@@ -19,16 +21,23 @@ public class SignosVitalesService {
     private SignosVitalesRepository repository;
     @Autowired
     private AuthService authService;
+    @Autowired
+    private FichaClinicaRepository fichaRepository;
 
     @Value("${auth.url}")
     private String AUTH_URL;
+
+    public List<SignosVitales> listarPorFicha(
+            Long fichaId) {
+
+        return repository.findByFichaId(fichaId);
+    }
 
     public boolean validarToken(String token) {
         token = token.replaceAll("Bearer ", ""); // Eliminar el prefijo "Bearer " si está
         try {
 
-            ResponseEntity<String> response =
-                    authService.get(AUTH_URL, token);
+            ResponseEntity<String> response = authService.get(AUTH_URL, token);
 
             return response.getStatusCode() == HttpStatus.OK;
 
@@ -43,6 +52,7 @@ public class SignosVitalesService {
             return false;
         }
     }
+
     public List<SignosVitales> listarTodos(String token) {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
@@ -52,23 +62,21 @@ public class SignosVitalesService {
 
     public SignosVitales guardar(
             String token,
-            SignosVitales signosVitales
-    ) {
+            SignosVitales signosVitales) {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
         return repository.save(signosVitales);
     }
+
     public SignosVitales guardar(
-            SignosVitales signosVitales
-    ) {
+            SignosVitales signosVitales) {
         return repository.save(signosVitales);
     }
 
     public SignosVitales buscarPorId(
             String token,
-            Long id
-    ) {
+            Long id) {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
@@ -78,11 +86,23 @@ public class SignosVitalesService {
 
     public void eliminar(
             String token,
-            Long id
-    ) {
+            Long id) {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
         repository.deleteById(id);
+    }
+
+    public SignosVitales guardar(
+            Long fichaId,
+            SignosVitales signosVitales) {
+
+        FichaClinica ficha = fichaRepository
+                .findById(fichaId)
+                .orElseThrow(() -> new RuntimeException("Ficha no encontrada"));
+
+        signosVitales.setFicha(ficha);
+
+        return repository.save(signosVitales);
     }
 }
