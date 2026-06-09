@@ -13,40 +13,53 @@ import datosmedicos_service.repository.FichaClinicaRepository;
 @Service
 public class AntropometriaService {
 
-    private final AntropometriaRepository repository;
-    private final FichaClinicaRepository fichaRepository;
+        private final AntropometriaRepository repository;
+        private final FichaClinicaRepository fichaRepository;
 
-    public AntropometriaService(
-            AntropometriaRepository repository,
-            FichaClinicaRepository fichaRepository) {
+        public AntropometriaService(
+                        AntropometriaRepository repository,
+                        FichaClinicaRepository fichaRepository) {
 
-        this.repository = repository;
-        this.fichaRepository = fichaRepository;
-    }
+                this.repository = repository;
+                this.fichaRepository = fichaRepository;
+        }
 
-    public Antropometria guardar(
-            Long fichaId,
-            Antropometria antropometria) {
+        public Antropometria guardar(
+                        Long fichaId,
+                        Antropometria antropometria) {
 
-        FichaClinica ficha =
-                fichaRepository.findById(fichaId)
-                        .orElseThrow(() ->
-                                new RuntimeException(
-                                        "Ficha no encontrada"));
+                FichaClinica ficha = fichaRepository.findById(fichaId)
+                                .orElseThrow(() -> new RuntimeException(
+                                                "Ficha no encontrada"));
 
-        antropometria.setFicha(ficha);
+                System.out.println(
+                                "FICHA ENCONTRADA: "
+                                                + ficha.getId());
 
-        antropometria.setFechaRegistro(
-                LocalDateTime.now());
+                antropometria.setFicha(ficha);
 
-        return repository.save(
-                antropometria);
-    }
+                System.out.println(
+                                "FICHA ASIGNADA A ANTROPOMETRIA: "
+                                                + antropometria.getFicha().getId());
 
-    public List<Antropometria> listarPorFicha(
-            Long fichaId) {
+                antropometria.setFechaRegistro(
+                                LocalDateTime.now());
 
-        return repository.findByFichaId(
-                fichaId);
-    }
+                Antropometria guardada = repository.save(antropometria);
+
+                System.out.println(
+                                "FICHA GUARDADA EN BD: "
+                                                + (guardada.getFicha() != null
+                                                                ? guardada.getFicha().getId()
+                                                                : "NULL"));
+
+                return guardada;
+        }
+
+        public List<Antropometria> listarPorFicha(
+                        Long fichaId) {
+
+                return repository.findByFichaId(
+                                fichaId);
+        }
 }
