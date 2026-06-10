@@ -25,11 +25,10 @@ public class ExamenClinicoService {
 
     public boolean validarToken(String token) {
         token = token.replaceAll("Bearer ", ""); // Eliminar el prefijo "Bearer " si está
-        
+
         try {
 
-            ResponseEntity<String> response =
-                    authService.get(AUTH_URL, token);
+            ResponseEntity<String> response = authService.get(AUTH_URL, token);
 
             return response.getStatusCode() == HttpStatus.OK;
 
@@ -44,6 +43,7 @@ public class ExamenClinicoService {
             return false;
         }
     }
+
     public List<ExamenClinico> listarTodos(String token) {
 
         if (!validarToken(token)) {
@@ -54,8 +54,7 @@ public class ExamenClinicoService {
 
     public ExamenClinico guardar(
             String token,
-            ExamenClinico examen
-    ) {
+            ExamenClinico examen) {
 
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
@@ -65,8 +64,7 @@ public class ExamenClinicoService {
 
     public ExamenClinico buscarPorId(
             String token,
-            Long id
-    ) {
+            Long id) {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
@@ -79,5 +77,24 @@ public class ExamenClinicoService {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
         repository.deleteById(id);
+    }
+
+    public ExamenClinico actualizar(
+            String token,
+            Long id,
+            ExamenClinico examenActualizado) {
+
+        if (!validarToken(token)) {
+            throw new RuntimeException("Token no válido -> acceso denegado");
+        }
+
+        ExamenClinico examen = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Examen no encontrado"));
+
+        examen.setEstado(examenActualizado.getEstado());
+        examen.setResultado(examenActualizado.getResultado());
+        examen.setObservacion(examenActualizado.getObservacion());
+
+        return repository.save(examen);
     }
 }

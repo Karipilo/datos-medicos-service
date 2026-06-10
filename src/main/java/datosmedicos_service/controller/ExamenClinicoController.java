@@ -25,18 +25,27 @@ public class ExamenClinicoController {
     @PostMapping
     public ExamenClinico guardar(
             @RequestHeader("Authorization") String token,
-            @RequestBody
-            ExamenClinico examen
-    ) {
+            @RequestBody ExamenClinico examen) {
 
         return service.guardar(token, examen);
+    }
+
+    @PutMapping("/{id}")
+    public ExamenClinico actualizar(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Long id,
+            @RequestBody ExamenClinico examen) {
+
+        return service.actualizar(
+                token,
+                id,
+                examen);
     }
 
     @GetMapping("/{id}")
     public ExamenClinico buscarPorId(
             @RequestHeader("Authorization") String token,
-            @PathVariable Long id
-    ) {
+            @PathVariable Long id) {
 
         return service.buscarPorId(token, id);
     }
@@ -44,8 +53,7 @@ public class ExamenClinicoController {
     @DeleteMapping("/{id}")
     public void eliminar(
             @RequestHeader("Authorization") String token,
-            @PathVariable Long id
-    ) {
+            @PathVariable Long id) {
 
         service.eliminar(token, id);
     }
