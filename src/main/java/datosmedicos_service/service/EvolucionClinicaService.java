@@ -54,11 +54,17 @@ public class EvolucionClinicaService {
     public EvolucionClinica guardar(
             String token,
             EvolucionClinica evolucion) {
-        System.out.println("ENTRO A GUARDAR");
-        System.out.println(evolucion.getDescripcion());
-        // if (!validarToken(token)) {
-        // throw new RuntimeException("Token no válido -> acceso denegado");
-        // }
+
+        System.out.println("===== EVOLUCION RECIBIDA =====");
+
+        System.out.println("Fecha: " + evolucion.getFecha());
+
+        System.out.println("Profesional: " + evolucion.getProfesional());
+
+        System.out.println("Descripcion: " + evolucion.getDescripcion());
+
+        System.out.println("PacienteId: " + evolucion.getPacienteId());
+
         return repository.save(evolucion);
     }
 
