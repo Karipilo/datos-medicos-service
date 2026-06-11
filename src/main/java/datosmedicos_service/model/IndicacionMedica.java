@@ -17,14 +17,17 @@ public class IndicacionMedica {
     @Column(length = 2000)
     private String indicacion;
 
+    @ManyToOne
+    @JoinColumn(name = "ficha_id")
+    private FichaClinica ficha;
+
     public IndicacionMedica() {
     }
 
     public IndicacionMedica(
             String fecha,
             String profesional,
-            String indicacion
-    ) {
+            String indicacion) {
         this.fecha = fecha;
         this.profesional = profesional;
         this.indicacion = indicacion;
@@ -46,6 +49,10 @@ public class IndicacionMedica {
         return indicacion;
     }
 
+    public FichaClinica getFicha() {
+    return ficha;
+    }
+
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
@@ -56,5 +63,11 @@ public class IndicacionMedica {
 
     public void setIndicacion(String indicacion) {
         this.indicacion = indicacion;
+    }
+
+    
+
+    public void setFicha(FichaClinica ficha) {
+        this.ficha = ficha;
     }
 }
