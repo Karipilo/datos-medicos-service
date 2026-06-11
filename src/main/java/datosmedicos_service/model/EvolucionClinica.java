@@ -61,10 +61,12 @@ public class EvolucionClinica {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+public void setProfesional(String profesional) {
 
-    public void setProfesional(String profesional) {
-        this.profesional = profesional;
-    }
+    System.out.println("SET PROFESIONAL -> " + profesional);
+
+    this.profesional = profesional;
+}
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
