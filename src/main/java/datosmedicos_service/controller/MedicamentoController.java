@@ -24,8 +24,9 @@ public class MedicamentoController {
     @PostMapping
     public Medicamento guardar(
             @RequestHeader("Authorization") String token,
-            @RequestBody Medicamento medicamento
-    ) {
+            @RequestBody Medicamento medicamento) {
         return service.guardar(token, medicamento);
     }
+
+    
 }
