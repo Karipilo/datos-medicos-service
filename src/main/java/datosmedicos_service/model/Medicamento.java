@@ -24,6 +24,9 @@ public class Medicamento {
 
     private String observaciones;
 
+    @Column(name = "dias_tratamiento")
+    private Integer diasTratamiento;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ficha_id")
     @JsonBackReference
