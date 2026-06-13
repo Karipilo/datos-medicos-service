@@ -25,18 +25,15 @@ public class IndicacionMedicaController {
     @PostMapping
     public IndicacionMedica guardar(
             @RequestHeader("Authorization") String token,
-            @RequestBody
-            IndicacionMedica indicacion
-    ) {
+            @RequestBody IndicacionMedica indicacion) {
 
-        return service.guardar(token,indicacion);
+        return service.guardar(token, indicacion);
     }
 
     @GetMapping("/{id}")
     public IndicacionMedica buscarPorId(
             @RequestHeader("Authorization") String token,
-            @PathVariable Long id
-    ) {
+            @PathVariable Long id) {
 
         return service.buscarPorId(token, id);
     }
@@ -44,9 +41,17 @@ public class IndicacionMedicaController {
     @DeleteMapping("/{id}")
     public void eliminar(
             @RequestHeader("Authorization") String token,
-            @PathVariable Long id
-    ) {
+            @PathVariable Long id) {
 
         service.eliminar(token, id);
+    }
+
+    @PutMapping("/{id}")
+    public IndicacionMedica actualizar(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Long id,
+            @RequestBody IndicacionMedica indicacion) {
+
+        return service.actualizar(token, id, indicacion);
     }
 }

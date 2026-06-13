@@ -24,9 +24,7 @@ public class EvolucionClinicaController {
     @PostMapping
     public EvolucionClinica guardar(
             @RequestHeader("Authorization") String token,
-            @RequestBody
-            EvolucionClinica evolucion
-    ) {
+            @RequestBody EvolucionClinica evolucion) {
 
         return service.guardar(token, evolucion);
     }
@@ -34,8 +32,7 @@ public class EvolucionClinicaController {
     @GetMapping("/{id}")
     public EvolucionClinica buscarPorId(
             @RequestHeader("Authorization") String token,
-            @PathVariable Long id
-    ) {
+            @PathVariable Long id) {
 
         return service.buscarPorId(token, id);
     }
@@ -43,9 +40,18 @@ public class EvolucionClinicaController {
     @DeleteMapping("/{id}")
     public void eliminar(
             @RequestHeader("Authorization") String token,
-            @PathVariable Long id
-    ) {
+            @PathVariable Long id) {
 
         service.eliminar(token, id);
+    }
+
+    @PutMapping("/{id}")
+    public EvolucionClinica actualizar(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Long id,
+            @RequestBody EvolucionClinica evolucion) {
+
+        return service.actualizar(token, id, evolucion);
+
     }
 }

@@ -84,4 +84,30 @@ public class EvolucionClinicaService {
         }
         repository.deleteById(id);
     }
+
+    public EvolucionClinica actualizar(
+            String token,
+            Long id,
+            EvolucionClinica evolucionActualizada) {
+
+        if (!validarToken(token)) {
+
+            throw new RuntimeException(
+                    "Token no válido -> acceso denegado");
+
+        }
+
+        EvolucionClinica evolucion = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException(
+                        "Evolución no encontrada"));
+
+        evolucion.setDescripcion(
+                evolucionActualizada.getDescripcion());
+
+        evolucion.setObservaciones(
+                evolucionActualizada.getObservaciones());
+
+        return repository.save(evolucion);
+
+    }
 }
