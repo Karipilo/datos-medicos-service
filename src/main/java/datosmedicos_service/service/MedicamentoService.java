@@ -26,8 +26,7 @@ public class MedicamentoService {
         token = token.replaceAll("Bearer ", ""); // Eliminar el prefijo "Bearer " si está
         try {
 
-            ResponseEntity<String> response =
-                    authService.get(AUTH_URL, token);
+            ResponseEntity<String> response = authService.get(AUTH_URL, token);
 
             return response.getStatusCode() == HttpStatus.OK;
 
@@ -42,6 +41,7 @@ public class MedicamentoService {
             return false;
         }
     }
+
     public MedicamentoService(MedicamentoRepository repository) {
         this.repository = repository;
     }
@@ -57,6 +57,36 @@ public class MedicamentoService {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
+        return repository.save(medicamento);
+    }
+
+    public Medicamento actualizar(
+            String token,
+            Long id,
+            Medicamento medicamentoActualizado) {
+
+        if (!validarToken(token)) {
+
+            throw new RuntimeException(
+                    "Token no válido -> acceso denegado");
+        }
+
+        Medicamento medicamento = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException(
+                        "Medicamento no encontrado"));
+
+        medicamento.setNombre(
+                medicamentoActualizado.getNombre());
+
+        medicamento.setDosis(
+                medicamentoActualizado.getDosis());
+
+        medicamento.setFrecuencia(
+                medicamentoActualizado.getFrecuencia());
+
+        medicamento.setObservaciones(
+                medicamentoActualizado.getObservaciones());
+
         return repository.save(medicamento);
     }
 }

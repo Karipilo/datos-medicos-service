@@ -26,11 +26,10 @@ public class IndicacionMedicaService {
 
     public boolean validarToken(String token) {
         token = token.replaceAll("Bearer ", ""); // Eliminar el prefijo "Bearer " si está
-        
+
         try {
 
-            ResponseEntity<String> response =
-                    authService.get(AUTH_URL, token);
+            ResponseEntity<String> response = authService.get(AUTH_URL, token);
 
             return response.getStatusCode() == HttpStatus.OK;
 
@@ -45,6 +44,7 @@ public class IndicacionMedicaService {
             return false;
         }
     }
+
     public List<IndicacionMedica> listarTodos(String token) {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
@@ -54,8 +54,7 @@ public class IndicacionMedicaService {
 
     public IndicacionMedica guardar(
             String token,
-            IndicacionMedica indicacion
-    ) {
+            IndicacionMedica indicacion) {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
@@ -64,8 +63,7 @@ public class IndicacionMedicaService {
 
     public IndicacionMedica buscarPorId(
             String token,
-            Long id
-    ) {
+            Long id) {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
@@ -78,5 +76,24 @@ public class IndicacionMedicaService {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
         repository.deleteById(id);
+    }
+
+    public IndicacionMedica actualizar(
+            String token,
+            Long id,
+            IndicacionMedica indicacionActualizada) {
+
+        if (!validarToken(token)) {
+            throw new RuntimeException("Token no válido");
+        }
+
+        IndicacionMedica indicacion = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException(
+                        "Indicación no encontrada"));
+
+        indicacion.setIndicacion(
+                indicacionActualizada.getIndicacion());
+
+        return repository.save(indicacion);
     }
 }

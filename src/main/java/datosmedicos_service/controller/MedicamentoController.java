@@ -28,5 +28,13 @@ public class MedicamentoController {
         return service.guardar(token, medicamento);
     }
 
-    
+    @PutMapping("/{id}")
+    public Medicamento actualizar(
+            @RequestHeader("Authorization") String token,
+            @PathVariable Long id,
+            @RequestBody Medicamento medicamento) {
+
+        return service.actualizar(token, id, medicamento);
+    }
+
 }
