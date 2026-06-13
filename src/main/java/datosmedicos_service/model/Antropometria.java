@@ -26,6 +26,8 @@ public class Antropometria {
 
     private LocalDateTime fechaRegistro;
 
+    private String profesional;
+    
     @ManyToOne
     @JoinColumn(name = "ficha_id")
     @JsonBackReference

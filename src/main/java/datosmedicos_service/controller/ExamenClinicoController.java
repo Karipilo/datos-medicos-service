@@ -3,8 +3,10 @@ package datosmedicos_service.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import datosmedicos_service.dto.ExamenClinicoRequest;
 import datosmedicos_service.model.ExamenClinico;
 import datosmedicos_service.service.ExamenClinicoService;
 
@@ -17,24 +19,33 @@ public class ExamenClinicoController {
     private ExamenClinicoService service;
 
     @GetMapping
-    public List<ExamenClinico> listarTodos(@RequestHeader("Authorization") String token) {
+    public List<ExamenClinicoRequest> listarTodos(@RequestHeader("Authorization") String token) {
 
         return service.listarTodos(token);
     }
 
-    @PostMapping
+    @PostMapping(
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ExamenClinico guardar(
             @RequestHeader("Authorization") String token,
-            @RequestBody ExamenClinico examen) {
+            @RequestBody ExamenClinicoRequest examen
+    ) {
 
         return service.guardar(token, examen);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping(
+        value = "/{id}",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public ExamenClinico actualizar(
             @RequestHeader("Authorization") String token,
             @PathVariable Long id,
-            @RequestBody ExamenClinico examen) {
+            @RequestBody ExamenClinicoRequest examen
+    ) {
 
         return service.actualizar(
                 token,

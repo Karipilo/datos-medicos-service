@@ -39,4 +39,8 @@ public class FichaClinica {
     @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Antropometria> antropometrias = new ArrayList<>();
+
+    @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<ExamenClinico> examenes = new ArrayList<>();
 }

@@ -1,11 +1,18 @@
 package datosmedicos_service.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Entity
 @Table(name = "signos_vitales")
-public class SignosVitales {
+@Data
+@AllArgsConstructor
 
+
+public class SignosVitales {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +27,7 @@ public class SignosVitales {
 
     private String profesional;
 
-    private String fecha;
+    private LocalDateTime fecha;
 
     @ManyToOne
     @JoinColumn(name = "ficha_id")
@@ -35,7 +42,7 @@ public class SignosVitales {
             Double temperatura,
             Integer saturacion,
             String profesional,
-            String fecha
+            LocalDateTime fecha
     ) {
 
         this.presion = presion;
@@ -90,11 +97,11 @@ public class SignosVitales {
         this.profesional = profesional;
     }
 
-    public String getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
