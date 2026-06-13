@@ -9,8 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
+import datosmedicos_service.dto.ExamenClinicoRequest;
 import datosmedicos_service.model.ExamenClinico;
+import datosmedicos_service.model.FichaClinica;
 import datosmedicos_service.repository.ExamenClinicoRepository;
+import datosmedicos_service.repository.FichaClinicaRepository;
 
 @Service
 public class ExamenClinicoService {
@@ -20,6 +23,9 @@ public class ExamenClinicoService {
     @Autowired
     private AuthService authService;
 
+    @Autowired
+    private FichaClinicaRepository fichaRepository;
+    
     @Value("${auth.url}")
     private String AUTH_URL;
 
@@ -44,23 +50,52 @@ public class ExamenClinicoService {
         }
     }
 
-    public List<ExamenClinico> listarTodos(String token) {
+    public List<ExamenClinicoRequest> listarTodos(String token) {
 
-        if (!validarToken(token)) {
-            throw new RuntimeException("Token no válido -> acceso denegado");
-        }
-        return repository.findAll();
+    if (!validarToken(token)) {
+        throw new RuntimeException("Token no válido");
     }
+
+    return repository.findAll()
+        .stream()
+        .map(e -> new ExamenClinicoRequest(
+            e.getId(),
+            e.getNombre(),
+            e.getFecha(),
+            e.getEstado(),
+            e.getProfesional(),
+            e.getObservacion(),
+            e.getResultado(),
+            e.getFicha() != null ? e.getFicha().getId() : null
+        ))
+        .toList();
+}
 
     public ExamenClinico guardar(
-            String token,
-            ExamenClinico examen) {
+        String token,
+        ExamenClinicoRequest request) {
 
-        if (!validarToken(token)) {
-            throw new RuntimeException("Token no válido -> acceso denegado");
-        }
-        return repository.save(examen);
+    if (!validarToken(token)) {
+        throw new RuntimeException("Token no válido");
     }
+
+    FichaClinica ficha = fichaRepository.findById(request.getFicha())
+            .orElseThrow(() -> new RuntimeException("Ficha no encontrada"));
+
+    ExamenClinico examen = new ExamenClinico();
+
+    examen.setNombre(request.getNombre());
+    examen.setFecha(request.getFecha());
+    examen.setEstado(request.getEstado());
+    examen.setProfesional(request.getProfesional());
+    examen.setObservacion(request.getObservacion());
+    examen.setResultado(request.getResultado());
+
+    // IMPORTANTE
+    examen.setFicha(ficha);
+
+    return repository.save(examen);
+}
 
     public ExamenClinico buscarPorId(
             String token,
@@ -82,7 +117,7 @@ public class ExamenClinicoService {
     public ExamenClinico actualizar(
             String token,
             Long id,
-            ExamenClinico examenActualizado) {
+            ExamenClinicoRequest examenActualizado) {
 
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");

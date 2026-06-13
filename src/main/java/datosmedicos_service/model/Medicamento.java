@@ -29,16 +29,7 @@ public class Medicamento {
 
     private String profesional;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ficha_id")
-    @JsonBackReference
-    private FichaClinica ficha;
+    private Long ficha;
 
-    public String getProfesional() {
-        return profesional;
-    }
-
-    public void setProfesional(String profesional) {
-        this.profesional = profesional;
-    }
+    
 }

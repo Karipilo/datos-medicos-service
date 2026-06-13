@@ -1,9 +1,16 @@
 package datosmedicos_service.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "examenes_clinicos")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ExamenClinico {
 
     @Id
@@ -26,83 +33,6 @@ public class ExamenClinico {
 
     @ManyToOne
     @JoinColumn(name = "ficha_id")
+    @JsonBackReference
     private FichaClinica ficha;
-
-    public ExamenClinico() {
-    }
-
-    public ExamenClinico(
-            String nombre,
-            String fecha,
-            String estado,
-            String profesional,
-            String observacion,
-            String resultado) {
-        this.nombre = nombre;
-        this.fecha = fecha;
-        this.estado = estado;
-        this.profesional = profesional;
-        this.observacion = observacion;
-        this.resultado = resultado;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getFecha() {
-        return fecha;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public String getProfesional() {
-        return profesional;
-    }
-
-    public String getObservacion() {
-        return observacion;
-    }
-
-    public FichaClinica getFicha() {
-        return ficha;
-    }
-
-    public String getResultado() {
-        return resultado;
-    }
-
-    public void setFicha(FichaClinica ficha) {
-        this.ficha = ficha;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public void setProfesional(String profesional) {
-        this.profesional = profesional;
-    }
-
-    public void setObservacion(String observacion) {
-        this.observacion = observacion;
-    }
-
-    public void setResultado(String resultado) {
-        this.resultado = resultado;
-    }
 }

@@ -1,6 +1,9 @@
 package datosmedicos_service.repository;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDateTime;
+
 import org.springframework.test.context.ActiveProfiles;
 import datosmedicos_service.model.SignosVitales;
 import org.junit.jupiter.api.Test;
@@ -25,7 +28,7 @@ public class SignosVitalesRepositoryTest {
         signos.setFrecuencia(72);
         signos.setTemperatura(36.5);
         signos.setSaturacion(98);
-        signos.setFecha("2026-05-03");
+        signos.setFecha(LocalDateTime.now());
         signos.setProfesional("Dr. Carlos");
 
         SignosVitales guardado =
