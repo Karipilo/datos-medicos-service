@@ -33,8 +33,5 @@ public class Medicamento {
 
     private String profesional;
 
-    @ManyToOne
-    @JoinColumn(name = "ficha_id")
-    @JsonBackReference
-    private FichaClinica ficha;
+    private String ficha;
 }

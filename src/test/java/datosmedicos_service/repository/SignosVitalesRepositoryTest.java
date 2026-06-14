@@ -28,7 +28,7 @@ public class SignosVitalesRepositoryTest {
         signos.setFrecuencia(72);
         signos.setTemperatura(36.5);
         signos.setSaturacion(98);
-        signos.setFecha(LocalDateTime.now());
+        signos.setFechaRegistro(LocalDateTime.now());
         signos.setProfesional("Dr. Carlos");
 
         SignosVitales guardado =
