@@ -11,7 +11,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 
-
 public class SignosVitales {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +26,8 @@ public class SignosVitales {
 
     private String profesional;
 
-    private LocalDateTime fecha;
+    @Column(name = "fecha_registro")
+    private LocalDateTime fechaRegistro;
 
     @ManyToOne
     @JoinColumn(name = "ficha_id")
@@ -42,15 +42,14 @@ public class SignosVitales {
             Double temperatura,
             Integer saturacion,
             String profesional,
-            LocalDateTime fecha
-    ) {
+            LocalDateTime fecha) {
 
         this.presion = presion;
         this.frecuencia = frecuencia;
         this.temperatura = temperatura;
         this.saturacion = saturacion;
         this.profesional = profesional;
-        this.fecha = fecha;
+        this.fechaRegistro = fecha;
     }
 
     public Long getId() {
@@ -97,12 +96,12 @@ public class SignosVitales {
         this.profesional = profesional;
     }
 
-    public LocalDateTime getFecha() {
-        return fecha;
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public FichaClinica getFicha() {

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "examenes_clinicos")
@@ -19,7 +20,8 @@ public class ExamenClinico {
 
     private String nombre;
 
-    private String fecha;
+    @Column(name = "fecha_registro")
+    private LocalDateTime fechaRegistro;
 
     private String estado;
 

@@ -1,5 +1,6 @@
 package datosmedicos_service.model;
 
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,7 +11,8 @@ public class EvolucionClinica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fecha;
+    @Column(name = "fecha_registro")
+    private LocalDateTime fechaRegistro;
 
     private String profesional;
 
@@ -26,10 +28,11 @@ public class EvolucionClinica {
     }
 
     public EvolucionClinica(
-            String fecha,
+            LocalDateTime fechaRegistro,
             String profesional,
             String descripcion) {
-        this.fecha = fecha;
+
+        this.fechaRegistro = fechaRegistro;
         this.profesional = profesional;
         this.descripcion = descripcion;
     }
@@ -38,8 +41,8 @@ public class EvolucionClinica {
         return id;
     }
 
-    public String getFecha() {
-        return fecha;
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
     }
 
     public String getProfesional() {
@@ -58,15 +61,16 @@ public class EvolucionClinica {
         return pacienteId;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
-public void setProfesional(String profesional) {
 
-    System.out.println("SET PROFESIONAL -> " + profesional);
+    public void setProfesional(String profesional) {
 
-    this.profesional = profesional;
-}
+        System.out.println("SET PROFESIONAL -> " + profesional);
+
+        this.profesional = profesional;
+    }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -24,12 +25,16 @@ public class Medicamento {
 
     private String observaciones;
 
+    @Column(name = "fecha_registro")
+    private LocalDateTime fechaRegistro;
+
     @Column(name = "dias_tratamiento")
     private Integer diasTratamiento;
 
     private String profesional;
 
-    private Long ficha;
-
-    
+    @ManyToOne
+    @JoinColumn(name = "ficha_id")
+    @JsonBackReference
+    private FichaClinica ficha;
 }
