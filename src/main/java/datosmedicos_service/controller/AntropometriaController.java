@@ -21,11 +21,7 @@ public class AntropometriaController {
         this.service = service;
     }
 
-    @PostMapping(
-            value = "/{fichaId}",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PostMapping(value = "/{fichaId}")
     public Antropometria guardar(
             @PathVariable Long fichaId,
             @RequestBody Antropometria antropometria) {

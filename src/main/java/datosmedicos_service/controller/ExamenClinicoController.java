@@ -24,10 +24,7 @@ public class ExamenClinicoController {
         return service.listarTodos(token);
     }
 
-    @PostMapping(
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PostMapping
     public ExamenClinico guardar(
             @RequestHeader("Authorization") String token,
             @RequestBody ExamenClinicoRequest examen
@@ -36,11 +33,7 @@ public class ExamenClinicoController {
         return service.guardar(token, examen);
     }
 
-    @PutMapping(
-        value = "/{id}",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @PutMapping("/{id}")
     public ExamenClinico actualizar(
             @RequestHeader("Authorization") String token,
             @PathVariable Long id,

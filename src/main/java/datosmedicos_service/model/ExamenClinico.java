@@ -35,6 +35,6 @@ public class ExamenClinico {
 
     @ManyToOne
     @JoinColumn(name = "ficha_id")
-    @JsonBackReference
+    @JsonBackReference("ficha-examenes")
     private FichaClinica ficha;
 }
