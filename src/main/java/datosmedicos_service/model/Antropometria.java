@@ -30,6 +30,6 @@ public class Antropometria {
     
     @ManyToOne
     @JoinColumn(name = "ficha_id")
-    @JsonBackReference
+    @JsonBackReference("ficha-antropometrias")
     private FichaClinica ficha;
 }

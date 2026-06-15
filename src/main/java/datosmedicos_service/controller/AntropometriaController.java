@@ -2,6 +2,7 @@ package datosmedicos_service.controller;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import datosmedicos_service.model.Antropometria;
@@ -20,7 +21,7 @@ public class AntropometriaController {
         this.service = service;
     }
 
-    @PostMapping("/{fichaId}")
+    @PostMapping(value = "/{fichaId}")
     public Antropometria guardar(
             @PathVariable Long fichaId,
             @RequestBody Antropometria antropometria) {

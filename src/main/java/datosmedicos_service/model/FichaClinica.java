@@ -33,14 +33,13 @@ public class FichaClinica {
     private String genero;
 
     @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
     private List<Medicamento> medicamentos;
 
     @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference("ficha-antropometrias")
     private List<Antropometria> antropometrias = new ArrayList<>();
 
     @OneToMany(mappedBy = "ficha", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonManagedReference("ficha-examenes")
     private List<ExamenClinico> examenes = new ArrayList<>();
 }

@@ -1,7 +1,7 @@
 package datosmedicos_service.service;
 
 import java.util.List;
-
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -57,7 +57,9 @@ public class EvolucionClinicaService {
 
         System.out.println("===== EVOLUCION RECIBIDA =====");
 
-        System.out.println("Fecha: " + evolucion.getFecha());
+        evolucion.setFechaRegistro(LocalDateTime.now());
+
+        System.out.println("Fecha: " + evolucion.getFechaRegistro());
 
         System.out.println("Profesional: " + evolucion.getProfesional());
 

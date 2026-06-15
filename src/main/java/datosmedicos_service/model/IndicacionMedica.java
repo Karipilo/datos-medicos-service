@@ -1,6 +1,7 @@
 package datosmedicos_service.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "indicaciones_medicas")
@@ -10,7 +11,8 @@ public class IndicacionMedica {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String fecha;
+    @Column(name = "fecha_registro")
+    private LocalDateTime fechaRegistro;
 
     private String profesional;
 
@@ -25,10 +27,11 @@ public class IndicacionMedica {
     }
 
     public IndicacionMedica(
-            String fecha,
+            LocalDateTime fechaRegistro,
             String profesional,
             String indicacion) {
-        this.fecha = fecha;
+
+        this.fechaRegistro = fechaRegistro;
         this.profesional = profesional;
         this.indicacion = indicacion;
     }
@@ -37,8 +40,8 @@ public class IndicacionMedica {
         return id;
     }
 
-    public String getFecha() {
-        return fecha;
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
     }
 
     public String getProfesional() {
@@ -50,11 +53,11 @@ public class IndicacionMedica {
     }
 
     public FichaClinica getFicha() {
-    return ficha;
+        return ficha;
     }
 
-    public void setFecha(String fecha) {
-        this.fecha = fecha;
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 
     public void setProfesional(String profesional) {
@@ -64,8 +67,6 @@ public class IndicacionMedica {
     public void setIndicacion(String indicacion) {
         this.indicacion = indicacion;
     }
-
-    
 
     public void setFicha(FichaClinica ficha) {
         this.ficha = ficha;

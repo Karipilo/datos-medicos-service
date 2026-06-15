@@ -67,7 +67,7 @@ public class SignosVitalesService {
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
-        
+
         return repository.save(signosVitales);
     }
 
@@ -104,7 +104,8 @@ public class SignosVitalesService {
                 .orElseThrow(() -> new RuntimeException("Ficha no encontrada"));
 
         signosVitales.setFicha(ficha);
-        signosVitales.setFecha(LocalDateTime.now());
+        signosVitales.setFechaRegistro(LocalDateTime.now());
+
         return repository.save(signosVitales);
     }
 }

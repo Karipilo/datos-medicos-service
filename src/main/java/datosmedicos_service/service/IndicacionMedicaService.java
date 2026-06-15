@@ -1,7 +1,7 @@
 package datosmedicos_service.service;
 
 import java.util.List;
-
+import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -55,9 +55,13 @@ public class IndicacionMedicaService {
     public IndicacionMedica guardar(
             String token,
             IndicacionMedica indicacion) {
+
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
+
+        indicacion.setFechaRegistro(LocalDateTime.now());
+
         return repository.save(indicacion);
     }
 

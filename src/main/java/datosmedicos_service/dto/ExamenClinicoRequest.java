@@ -12,7 +12,7 @@ public class ExamenClinicoRequest {
 
     private Long id;
     private String nombre;
-    private String fecha;
+    private String fechaRegistro;
     private String estado;
     private String profesional;
     private String observacion;
