@@ -10,6 +10,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.List;
 import datosmedicos_service.model.Medicamento;
 import datosmedicos_service.repository.MedicamentoRepository;
+import java.time.LocalDateTime;
 
 @Service
 public class MedicamentoService {
@@ -54,9 +55,13 @@ public class MedicamentoService {
     }
 
     public Medicamento guardar(String token, Medicamento medicamento) {
+
         if (!validarToken(token)) {
             throw new RuntimeException("Token no válido -> acceso denegado");
         }
+
+        medicamento.setFechaRegistro(LocalDateTime.now());
+
         return repository.save(medicamento);
     }
 
