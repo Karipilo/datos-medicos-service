@@ -14,11 +14,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 
 public class FichaClinicaServiceTest {
 
     @Mock
     private FichaClinicaRepository repository;
+
+    @Mock
+    private AuthService authService;
 
     @InjectMocks
     private FichaClinicaService service;
@@ -26,6 +31,8 @@ public class FichaClinicaServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+        ReflectionTestUtils.setField(service, "AUTH_URL", "http://localhost:8080/auth/validate");
+        ReflectionTestUtils.setField(service, "authService", authService);
     }
 
     @Test
@@ -150,5 +157,39 @@ public class FichaClinicaServiceTest {
 
         verify(repository)
                 .save(any(FichaClinica.class));
+    }
+
+    @Test
+    void buscarPorRut_noExiste_lanzaExcepcion() {
+        when(repository.findByRutPaciente("99999999-9"))
+                .thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class,
+                () -> service.buscarPorRut("99999999-9"));
+    }
+
+    @Test
+    void actualizar_fichaNoExiste_lanzaExcepcion() {
+        when(repository.findByRutPaciente("99999999-9"))
+                .thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class,
+                () -> service.actualizar("99999999-9", new FichaClinica()));
+    }
+
+    @Test
+    void validarToken_tokenValido_retornaTrue() {
+        when(authService.get(anyString(), anyString()))
+                .thenReturn(ResponseEntity.ok("OK"));
+
+        assertTrue(service.validarToken("Bearer token-valido"));
+    }
+
+    @Test
+    void validarToken_tokenInvalido_retornaFalse() {
+        when(authService.get(anyString(), anyString()))
+                .thenThrow(new RuntimeException("Token invalido"));
+
+        assertFalse(service.validarToken("Bearer malo"));
     }
 }
