@@ -19,4 +19,4 @@ EXPOSE 8083
 
 ENV JAVA_OPTS="-Xmx512m -Xms256m"
 
-ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dspring.profiles.active=docker -jar app.jar"]

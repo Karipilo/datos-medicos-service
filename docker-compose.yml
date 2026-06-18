@@ -1,0 +1,8 @@
+services:
+  datosmedicos-service:
+    build: .
+    container_name: datosmedicos-service
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
