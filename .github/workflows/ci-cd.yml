@@ -124,7 +124,7 @@ jobs:
       - name: Forzar nuevo deploy en ECS
         run: |
           aws ecs update-service \
-            --cluster cluster-microservicio-datosmedico \
-            --service servicio-datosmedicos \
+            --cluster cuidado-seguro-cluster \
+            --service datosmedicos-service \
             --force-new-deployment \
             --region us-east-1
