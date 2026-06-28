@@ -13,7 +13,7 @@ public class PacienteClient {
     private RestTemplate restTemplate;
 
     private final String URL_PACIENTES =
-            "http://localhost:8082/pacientes";
+            "http://alb-ms-pacientes-1492385033.us-east-1.elb.amazonaws.com:8082/pacientes";
 
     public PacienteDTO obtenerPaciente(Long id) {
 
